@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>테스트</title>
+  </head>
+  <body>
+    <div>
+      <button type="button" onclick="javascript: download(this)">다운로드</button>
+      <a style="visibility: hidden;" ></a>
+    </div>
+
+    <script type="text/javascript">
+      function download() {
+        console.log(1);
+        const request = new XMLHttpRequest();
+        request.open('get', '/download', true);
+        request.responseType = 'arraybuffer';
+        request.send();
+
+        request.onload = function (e) {
+          if (this.status == 200 && this.readyState == 4) {
+            const url = window.URL.createObjectURL(this.response);
+            const a = document.getElementsByTagName('a');
+            a.setAttribute('href', url);
+            a.setAttribute('download', data.fileName);
+            a.click();
+            a.remove();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
